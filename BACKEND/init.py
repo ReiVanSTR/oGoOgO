@@ -11,7 +11,6 @@ class SQLConnector():
 	def __init__(self):
 		try:
 			self.connection = mysql.connector.connect(**config.sql)
-			self.cursor = self.connection.cursor()
 			print('Succesfilly connected to ' + config.sql['database'] + 'database')
 		except mysql.connector.Error as error:
 			if error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -20,15 +19,14 @@ class SQLConnector():
 				print("Database does not exist")
 			else:
 				print(error)
-		else:
-			self.connection.close()
-			self.cursor.close()
 
 	def addUser(self, user='None'):
 		try:
-			query = "INSERT INTO users VALUES (?, ?)", (user, 0)
-			print(self.cursor.execute(query))
-			self.cursor.commit()
+			cursor = self.connection.cursor()
+			query = "INSERT INTO users (user) VALUES (%s)"
+			cursor.execute(query, (user,))
+			self.connection.commit()
+			cursor.close()
 			return True
 		except:
 			error_id, error = 101, f"Couldn't create user: {user}"
