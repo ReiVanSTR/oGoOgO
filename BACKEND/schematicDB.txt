@@ -1,9 +1,9 @@
 [[Creating main database]]
 
 CREATE TABLE users (
-	ID int NOT NULL,
+	ID int NOT NULL AUTO_INCREMENT,
 	user VARCHAR(255) NOT NULL,
-	status BOOLEAN, 
+	status BOOLEAN DEFAULT FALSE, 
 	PRIMARY KEY(ID)
 );
 

@@ -24,12 +24,26 @@ class SQLConnector():
 			self.connection.close()
 			self.cursor.close()
 
-	def test():
-		print("self.connection")
+	def addUser(self, user='None'):
+		try:
+			query = "INSERT INTO users VALUES (?, ?)", (user, 0)
+			print(self.cursor.execute(query))
+			self.cursor.commit()
+			return True
+		except:
+			error_id, error = 101, f"Couldn't create user: {user}"
+			return error_id, error
+
+
 
 db = SQLConnector()
-
+print(db.addUser('Admin'))
 @app.route('/')
 def hello_world():
 	return 'Hello from Flask!'
+
+
+"""DOCUMENTATION:"""
+
+"""Error 101: Couldn't create user Class: SQLConnector, function addUser"""
 
