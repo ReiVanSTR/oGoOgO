@@ -3,6 +3,7 @@ ApiCommunicator['version'] = "1.0"
 
 local json = require('json')
 local text = require('text')
+local internet = require('internet')
 
 local config = {}
 	config.url = {}
@@ -35,6 +36,19 @@ function ApiCommunicator:init()
 			if isInjected(pair) then return true end
 		end
 		return false
+	end
+
+	function objects:getUser(user)
+		if not self:checkOnInjection(user) then
+			for response in internet.request(string.format(config.url['getUser'], user)) do
+				if response then
+					return json.decode(response[1])
+				end
+			end
+			return false
+		else
+			return "Tryed to inject!"
+		end
 	end
 
 
