@@ -1,6 +1,6 @@
 --[[Creating main database]]--
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 	ID int NOT NULL AUTO_INCREMENT,
 	user VARCHAR(255) NOT NULL,
 	status BOOLEAN DEFAULT FALSE, 
