@@ -39,16 +39,18 @@ function ApiCommunicator:init()
 	end
 
 	function objects:getUser(user)
-		if not self:checkOnInjection(user) then
-			for response in internet.request(string.format(config.url['getUser'], user)) do
-				if response then
-					return json.decode(response[1])
+		if user ~= nil then
+			if not self:checkOnInjection(user) then
+				for response in internet.request(string.format(config.url['getUser'], user)) do
+					if response then
+						return json.decode(response)[1]
+					end
 				end
+			else
+				return "Tryed to injection: "..user
 			end
-			return false
-		else
-			return "Tryed to inject!"
 		end
+		return false
 	end
 
 

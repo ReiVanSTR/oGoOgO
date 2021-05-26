@@ -52,8 +52,7 @@ class SQLConnector():
 			cursor.execute("SELECT * FROM users WHERE user =%s", (user,))
 			response = cursor.fetchall()
 			if not response:
-				self.addUser(user)
-				return self.getUser(user)
+				return f"User {user} not found :("
 			else:
 				return response
 			cursor.close()
